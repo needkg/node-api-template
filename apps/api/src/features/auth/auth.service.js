@@ -1,10 +1,8 @@
-
 import { randomUUID } from "crypto";
+
+import { findUserByEmail, insertUser } from "./auth.repository.js";
 import { comparePasswords, hashPassword } from "./services/password.service.js";
 import { generateToken } from "./services/token.service.js";
-import { findUserByEmail, insertUser } from "./auth.repository.js";
-
-const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
 
 export async function authenticateUser(email, password) {
 

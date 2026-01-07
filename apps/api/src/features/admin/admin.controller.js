@@ -39,7 +39,7 @@ export async function desactiveUser(req, res) {
             });
         }
 
-        await desactiveUser(targetUserId);
+        await service.desactiveUser(targetUserId);
 
         return res.status(204).send();
     } catch (err) {
@@ -57,7 +57,7 @@ export async function activeUser(req, res) {
     try {
         const targetUserId = req.params.userId;
 
-        await activeUser(targetUserId);
+        await service.activeUser(targetUserId);
 
         return res.status(204).send();
     } catch (err) {

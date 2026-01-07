@@ -1,17 +1,16 @@
 import express from "express";
-import authRoutes from "./features/auth/auth.routes.js";
-import dbRoutes from "./features/setup/setup.routes.js";
+
 import adminRoutes from "./features/admin/admin.routes.js";
+import authRoutes from "./features/auth/auth.routes.js";
+import setupRoutes from "./features/setup/setup.routes.js";
 import userRoutes from "./features/users/user.routes.js";
-import databaseRoutes from "./features/setup/setup.routes.js";
 
 const app = express();
 
 app.use(express.json());
 app.use(authRoutes);
-app.use(dbRoutes);
+app.use(setupRoutes);
 app.use(userRoutes);
-app.use(databaseRoutes);
 app.use(adminRoutes);
 
 app.get("/", (req, res) => {

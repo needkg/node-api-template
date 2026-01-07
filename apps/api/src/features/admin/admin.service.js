@@ -22,9 +22,9 @@ export async function listUsersForAdmin() {
 }
 
 export async function activeUser(userId) {
-    await updateUserActivation(userId, true);
+    await repository.updateUserActivation(userId, true);
 }
 
 export async function desactiveUser(userId) {
-    await updateUserActivation(userId, false);
+    await repository.updateUserActivation(userId, false);
 }

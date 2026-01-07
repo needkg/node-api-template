@@ -1,6 +1,8 @@
 import { Router } from "express";
+
+import { ensureAdminSetupPending } from "#middlewares";
+
 import * as controller from "./setup.controller.js";
-import { ensureAdminSetupPending } from "../../shared/middlewares/index.js";
 
 const router = Router();
 
