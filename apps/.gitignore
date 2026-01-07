@@ -1,0 +1,151 @@
+# =================================================
+# DEPENDENCIES
+# =================================================
+node_modules/
+**/node_modules/
+.pnp/
+.pnp.js
+
+# =================================================
+# ENVIRONMENT VARIABLES & SECRETS (CRITICAL)
+# =================================================
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# =================================================
+# LOGS & DEBUG FILES
+# =================================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# =================================================
+# BUILD / DISTRIBUTION OUTPUT
+# =================================================
+dist/
+build/
+out/
+lib/
+coverage/
+.nyc_output/
+.cache/
+
+# =================================================
+# TESTING OUTPUT
+# =================================================
+*.lcov
+coverage/
+jest-html-reporters-*
+test-results/
+playwright-report/
+cypress/videos/
+cypress/screenshots/
+
+# =================================================
+# CACHE & TEMP FILES
+# =================================================
+.eslintcache
+.stylelintcache
+.prettiercache
+*.tsbuildinfo
+.tmp/
+tmp/
+temp/
+.cache/
+.npm/
+.yarn/
+.pnpm-store/
+
+# =================================================
+# IDEs & EDITORS
+# =================================================
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.code-workspace
+
+# =================================================
+# OPERATING SYSTEM FILES
+# =================================================
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Linux
+*~
+
+# =================================================
+# DOCKER FILES
+# =================================================
+docker-data/
+docker-volume/
+*.pid
+*.sock
+
+# =================================================
+# MONOREPO / FRAMEWORK TOOLS
+# =================================================
+.turbo/
+.nx/
+.next/
+.vercel/
+.output/
+.svelte-kit/
+.vite/
+.esbuild/
+
+# =================================================
+# SERVER / RUNTIME FILES
+# =================================================
+*.pid
+*.seed
+*.pid.lock
+pm2.log*
+pm2-dev.log*
+
+# =================================================
+# CERTIFICATES & PRIVATE KEYS (NEVER COMMIT)
+# =================================================
+*.pem
+*.key
+*.crt
+*.pfx
+*.p12
+*.jks
+
+# =================================================
+# LOCK FILES
+# =================================================
+# ❗ Do NOT ignore lock files by default.
+# They guarantee consistent installs across environments.
+# Uncomment only if you know exactly what you are doing.
+# yarn.lock
+# package-lock.json
+# pnpm-lock.yaml
+
+# =================================================
+# MISCELLANEOUS
+# =================================================
+*.bak
+*.old
+*.orig
+*.backup
