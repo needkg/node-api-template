@@ -81,7 +81,7 @@ Antes de começar, certifique-se de ter instalado:
 1. **Clone o repositório:**
 ```bash
 git clone <repository-url>
-cd primeira-api
+cd node-api-template
 ```
 
 2. **Instale as dependências:**
