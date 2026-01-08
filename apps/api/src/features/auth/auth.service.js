@@ -9,17 +9,17 @@ export async function authenticateUser(email, password) {
     const user = await findUserByEmail(email);
 
     if (!user) {
-        throw new Error("INVALID_CREDENTIALS");
+        throw { status: 401, error: "Unauthorized", message: "Invalid credentials" };
     }
 
     if (!user.isActivated) {
-        throw new Error("USER_DISABLED");
+        throw { status: 403, error: "Forbidden", message: "User is disabled" };
     }
 
     const validPassword = await comparePasswords(password, user.password);
 
     if (!validPassword) {
-        throw new Error("INVALID_CREDENTIALS");
+        throw { status: 401, error: "Unauthorized", message: "Invalid credentials" };
     }
 
     return {
