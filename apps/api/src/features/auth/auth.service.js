@@ -1,8 +1,8 @@
 import { randomUUID } from "crypto";
 
 import { findUserByEmail, insertUser } from "./auth.repository.js";
-import { comparePasswords, hashPassword } from "./services/password.service.js";
-import { generateToken } from "./services/token.service.js";
+import { comparePasswords, hashPassword } from "../../shared/auth/hash.js";
+import { generateToken } from "../../shared/auth/jwt.js";
 
 export async function authenticateUser(email, password) {
 
