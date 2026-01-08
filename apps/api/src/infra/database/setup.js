@@ -17,13 +17,8 @@ export async function createUsersTable() {
     `;
 
     try {
-        const result = await query(createUsersTableSql);
-
-        if (result.affectedRows > 0) {
-            console.info("[INFO] Users table created")
-        } else {
-            console.warn("[WARN] Users table already exists, skipping")
-        }
+        await query(createUsersTableSql);
+        console.info("[INFO] Users table ensured successfully");
     } catch (err) {
         console.error("[ERROR] Failed to create users table:", err.message);
         throw err;
@@ -39,19 +34,13 @@ export async function createSystemStateTable() {
         type ENUM('string', 'number', 'boolean', 'json') NOT NULL DEFAULT 'string',
         description TEXT NULL,
         createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ON UPDATE CURRENT_TIMESTAMP
+        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
     `;
 
     try {
-        const result = await query(createSystemStateTableSql);
-
-        if (result.affectedRows > 0) {
-            console.info("[INFO] System state table created")
-        } else {
-            console.warn("[WARN] System state table already exists, skipping")
-        }
+        await query(createSystemStateTableSql);
+        console.info("[INFO] System state table ensured successfully");
     } catch (err) {
         console.error("[ERROR] Failed to create system_state table:", err.message);
         throw err;
