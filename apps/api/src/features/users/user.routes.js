@@ -7,10 +7,17 @@ import * as controller from "./user.controller.js";
 const router = Router();
 
 router.get(
-    "/user/profile", 
+    "/user/me", 
     ensureAuthenticated, 
     ensureUserActivated, 
     controller.handleUserProfile
+);
+
+router.patch(
+    "/user/me",
+    ensureAuthenticated,
+    ensureUserActivated,
+    controller.handleUpdateUserProfile
 );
 
 export default router;

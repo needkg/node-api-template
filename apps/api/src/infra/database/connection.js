@@ -25,7 +25,7 @@ if (!DB_HOST || !DB_USER || !DB_PASSWORD || !DB_NAME || !DB_PORT) {
 export async function query(sql, params = []) {
     try {
         const [rows] = await pool.query(sql, params);
-        return rows;
+        return rows ?? null;
     } catch (error) {
         console.error("DB QUERY ERROR:", {
             sql,
@@ -38,10 +38,11 @@ export async function query(sql, params = []) {
 
 export async function getSystemStateByKey(key) {
     const result = await query(
-        "SELECT * FROM system_state WHERE `key` = ?",
+        "SELECT value FROM system_state WHERE `key` = ?",
         [key]
     );
-    return result[0];
+
+    return result;
 }
 
 export default pool;

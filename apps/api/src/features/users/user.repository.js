@@ -6,5 +6,12 @@ export async function findUserProfile(userId) {
         [userId]
     );
 
-    return rows[0]
+    return rows
+}
+
+export async function updateUserById(userId, name, username, email) {
+    await query(
+        "UPDATE users SET name = ?, username = ?, email = ? WHERE userId = ?",
+        [name, username, email, userId]
+    );
 }

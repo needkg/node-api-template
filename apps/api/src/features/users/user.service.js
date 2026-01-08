@@ -16,3 +16,14 @@ export async function getUserProfile(userId) {
     }
 
 }
+
+export async function updateUserProfile(userId, name, username, email) {
+    try {
+        await repository.updateUserById(userId, name, username, email);
+    } catch (err) {
+        throw { status: err.status || 500,
+                error: err.error || "Internal Server Error",
+                message: err.message
+            };
+    }
+}

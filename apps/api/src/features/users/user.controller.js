@@ -25,3 +25,21 @@ export async function handleUserProfile(req, res) {
         });
     }
 }
+
+export async function handleUpdateUserProfile(req, res) {
+    try {
+        const { userId } = req.user;
+        const { name, username, email } = req.body;
+
+        service.updateUserProfile(userId, name, username, email);
+
+        return res.status(204).send();
+
+    } catch (err) {
+        return res.status(err.status || 500).json({
+            status: err.status || 500,
+            error: err.error || "Internal Server Error",
+            message: err.message
+        });
+    }
+}

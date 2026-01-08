@@ -7,7 +7,7 @@ export async function ensureUserActivated(req, res, next) {
             [req.user.userId]
         );
 
-        req.user.isActivated = rows[0] ? rows[0].isActivated === 1 : false;
+        req.user.isActivated = rows ? rows.isActivated === 1 : false;
 
         if (!req.user.isActivated) {
             return res.status(403).json({

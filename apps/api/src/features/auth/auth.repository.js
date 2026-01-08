@@ -1,11 +1,12 @@
 import { query } from "../../infra/database/connection.js";
 
 export async function findUserByEmail(email) {
-    const result = await query(
+    const [result] = await query(
         "SELECT userId, name, username, email, password, isActivated, isAdmin FROM users WHERE email = ?",
         [email]
     );
-    return result[0] || null;
+
+    return result || null;
 }
 
 export async function insertUser(user) {
