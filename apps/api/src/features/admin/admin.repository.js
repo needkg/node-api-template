@@ -5,9 +5,9 @@ export async function fetchUsers() {
     return rows;
 }
 
-export async function updateUserActivation(userId, isActivated) {
+export async function updateUserById(userId, name, username, email, isActivated, isAdmin) {
     await query(
-        "UPDATE users SET isActivated = ? WHERE userId = ?",
-        [isActivated ? 1 : 0, userId]
+        "UPDATE users SET name = ?, username = ?, email = ?, isActivated = ?, isAdmin = ? WHERE userId = ?",
+        [name, username, email, isActivated, isAdmin, userId]
     );
 }

@@ -21,10 +21,13 @@ export async function listUsersForAdmin() {
     };
 }
 
-export async function activeUser(userId) {
-    await repository.updateUserActivation(userId, true);
-}
-
-export async function desactiveUser(userId) {
-    await repository.updateUserActivation(userId, false);
+export async function updateUserProfile(userId, name, username, email, isActivated, isAdmin) {
+    try {
+        await repository.updateUserById(userId, name, username, email, isActivated, isAdmin);
+    } catch (err) {
+        throw { status: err.status || 500,
+                error: err.error || "Internal Server Error",
+                message: err.message
+            };
+    }
 }

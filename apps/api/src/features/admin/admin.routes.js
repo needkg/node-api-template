@@ -15,19 +15,11 @@ router.get(
 );
 
 router.patch(
-    "/admin/user/:userId/desactivate", 
+    "/admin/users/:userId", 
     ensureAuthenticated, 
     ensureUserActivated, 
     requireAdmin, 
-    controller.desactiveUser
-);
-
-router.patch(
-    "/admin/user/:userId/activete", 
-    ensureAuthenticated, 
-    ensureUserActivated, 
-    requireAdmin, 
-    controller.activeUser
+    controller.handleUpdateUser
 );
 
 export default router;

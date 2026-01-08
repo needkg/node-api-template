@@ -25,11 +25,11 @@ export async function handleListUsers(req, res) {
     }
 }
 
-export async function desactiveUser(req, res) {
-
+export async function handleUpdateUser(req, res) {
     try {
+
         const targetUserId = req.params.userId;
-        const loggedInUserId = req.user.userId;
+        const loggedInUserId = req.user.UserId;
 
         if (targetUserId === loggedInUserId) {
             return res.status(400).json({
@@ -39,7 +39,17 @@ export async function desactiveUser(req, res) {
             });
         }
 
-        await service.desactiveUser(targetUserId);
+        const { name, username, email, isActivated, isAdmin } = req.body;
+
+        if (!name || !username || !email || !isActivated || !isAdmin) {
+            return res.status(400).json({
+                status: 400,
+                error: "Bad Request",
+                message: "All fields: name, username, email, isActivated, and isAdmin are required"
+            });
+        }
+
+        await service.updateUserProfile(targetUserId, name, username, email, isActivated, isAdmin)
 
         return res.status(204).send();
     } catch (err) {
@@ -49,23 +59,4 @@ export async function desactiveUser(req, res) {
             message: err.message
         });
     }
-
-}
-
-export async function activeUser(req, res) {
-
-    try {
-        const targetUserId = req.params.userId;
-
-        await service.activeUser(targetUserId);
-
-        return res.status(204).send();
-    } catch (err) {
-        return res.status(err.status || 500).json({
-            status: err.status || 500,
-            error: err.error || "Internal Server Error",
-            message: err.message
-        });
-    }
-
 }
