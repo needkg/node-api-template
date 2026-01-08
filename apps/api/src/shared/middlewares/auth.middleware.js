@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { verifyToken } from "../auth/jwt.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev-secret";
 
@@ -16,7 +16,7 @@ export async function ensureAuthenticated(req, res, next) {
     const [, token] = authHeader.split(" ");
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = verifyToken(token, JWT_SECRET);
         req.user = decoded;
 
         next();

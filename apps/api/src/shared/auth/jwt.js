@@ -9,3 +9,7 @@ if (!JWT_SECRET) {
 export function generateToken(payload) {
     return jwt.sign(payload, JWT_SECRET, { expiresIn: "5m" });
 }
+
+export function verifyToken(token) {
+    return jwt.verify(token, JWT_SECRET);
+}
