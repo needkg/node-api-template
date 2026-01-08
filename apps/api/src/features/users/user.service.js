@@ -6,13 +6,6 @@ export async function getUserProfile(userId) {
 
         const profile = await repository.findUserProfile(userId);
 
-        //if (profile === undefined) {
-        //    throw { status: 404,
-        //            error: "Not Found",
-        //            message: "User not found"
-        //         };
-        //}
-
         return profile;
 
     } catch (err) {
