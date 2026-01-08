@@ -56,13 +56,9 @@ export async function seedInitialSetupStates() {
 
     try {
 
-        const result = await query(insertStatesSql);
+        await query(insertStatesSql);
 
-        if (result.affectedRows > 0) {
-          console.info("[INFO] Initial setup states inserted into system_state table");
-        } else {
-          console.warn("[WARN] Initial setup states already exist, skipping");
-        }
+        console.info("[INFO] Initial setup states ensured successfully");
     } catch (err) {
         console.error("[ERROR] Failed to insert initial setup states:", err.message);
          throw err;
