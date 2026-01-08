@@ -17,7 +17,6 @@ export async function processUserAuthentication(req, res) {
 		const { token } = await service.authenticateUser(email, password);
 
         return res.status(200).json({
-            message: "Login successful",
             token
         });
 
