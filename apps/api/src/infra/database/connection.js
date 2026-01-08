@@ -37,11 +37,11 @@ export async function query(sql, params = []) {
 }
 
 export async function getSystemStateByKey(key) {
-    const [rows] = await query(
+    const result = await query(
         "SELECT * FROM system_state WHERE `key` = ?",
         [key]
     );
-    return rows[0];
+    return result[0];
 }
 
 export default pool;
