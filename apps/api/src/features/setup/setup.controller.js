@@ -1,6 +1,6 @@
 import * as service from "./setup.service.js";
 
-export async function handleCreateFirstAdmin(req , res) {
+export async function handleCreateFirstAdmin(req, res) {
 
     try {
 

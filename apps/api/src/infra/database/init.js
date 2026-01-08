@@ -1,6 +1,6 @@
 import pool from "./connection.js";
 
-export async function initDatabase() {
+export async function connectDatabase() {
     try {
         console.info("[INFO] Connecting to database");
 

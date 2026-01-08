@@ -39,7 +39,7 @@ export async function handleUpdateUserProfile(req, res) {
         });
         }
 
-        service.updateUserProfile(userId, name, username, email);
+        await service.updateUserProfile(userId, name, username, email);
 
         return res.status(204).send();
 

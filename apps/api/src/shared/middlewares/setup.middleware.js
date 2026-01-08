@@ -1,7 +1,7 @@
-import { getSystemStateByKey } from "../../infra/database/connection.js";
+import { findSystemStateByKey } from "../../infra/database/connection.js";
 
 export async function ensureAdminSetupPending(req, res, next) {
-    const setupState = await getSystemStateByKey("setup.admin");
+    const setupState = await findSystemStateByKey("setup.admin");
 
     if (setupState && setupState.value === "pending") {
         return next();

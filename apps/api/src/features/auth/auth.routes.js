@@ -11,7 +11,7 @@ router.post(
 
 router.post(
     "/auth/register",
-    controller.proccessUserRegistration
+    controller.processUserRegistration
 );
 
 export default router;

@@ -30,7 +30,7 @@ export async function processUserAuthentication(req, res) {
 	
 }
 
-export async function proccessUserRegistration(req, res) {
+export async function processUserRegistration(req, res) {
 
 	try {
 

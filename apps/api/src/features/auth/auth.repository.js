@@ -9,7 +9,7 @@ export async function findUserByEmail(email) {
     return result || null;
 }
 
-export async function insertUser(user) {
+export async function createUser(user) {
     await query(
         "INSERT INTO users (userId, name, username, email, password, isActivated) VALUES (?, ?, ?, ?, ?, ?)",
         [

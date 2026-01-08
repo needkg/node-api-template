@@ -1,6 +1,6 @@
 import { query } from "../../infra/database/connection.js";
 
-export async function fetchUsers() {
+export async function findUsers() {
     const rows = await query("SELECT id, userId, name, username, email, isActivated, isAdmin FROM users");
     return rows;
 }

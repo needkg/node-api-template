@@ -29,7 +29,7 @@ export async function handleUpdateUser(req, res) {
     try {
 
         const targetUserId = req.params.userId;
-        const loggedInUserId = req.user.UserId;
+        const loggedInUserId = req.user.userId;
 
         if (targetUserId === loggedInUserId) {
             return res.status(400).json({
@@ -49,7 +49,7 @@ export async function handleUpdateUser(req, res) {
             });
         }
 
-        await service.updateUserProfile(targetUserId, name, username, email, isActivated, isAdmin)
+        await service.updateUserProfile(targetUserId, name, username, email, isActivated, isAdmin);
 
         return res.status(204).send();
     } catch (err) {

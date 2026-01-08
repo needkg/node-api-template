@@ -1,7 +1,7 @@
 import * as repository from "./admin.repository.js";
 
 export async function listUsersForAdmin() {
-    const users = await repository.fetchUsers();
+    const users = await repository.findUsers();
 
     const usersById = {};
 

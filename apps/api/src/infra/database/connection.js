@@ -4,7 +4,6 @@ const DB_HOST = process.env.DB_HOST;
 const DB_USER = process.env.DB_USER;
 const DB_PASSWORD = process.env.DB_PASSWORD;
 const DB_NAME = process.env.DB_NAME;
-//const DB_PORT = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306;
 const DB_PORT = process.env.DB_PORT;
 
 const pool = mysql.createPool({
@@ -36,7 +35,7 @@ export async function query(sql, params = []) {
     }
 }
 
-export async function getSystemStateByKey(key) {
+export async function findSystemStateByKey(key) {
     const result = await query(
         "SELECT value FROM system_state WHERE `key` = ?",
         [key]

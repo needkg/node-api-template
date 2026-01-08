@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 
-import { findUserByEmail, insertUser } from "./auth.repository.js";
+import { createUser, findUserByEmail } from "./auth.repository.js";
 import { comparePasswords, hashPassword } from "../../shared/auth/hash.js";
 import { generateToken } from "../../shared/auth/jwt.js";
 
@@ -39,6 +39,6 @@ export async function registerUser(name, username, email, password) {
         isActivated: true
     }
 
-    await insertUser(user);
+    await createUser(user);
     
 }
