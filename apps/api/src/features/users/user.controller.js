@@ -31,6 +31,14 @@ export async function handleUpdateUserProfile(req, res) {
         const { userId } = req.user;
         const { name, username, email } = req.body;
 
+        if (!name || !username || !email) {
+        return res.status(400).json({
+            status: 400,
+            error: "Bad Request",
+            message: "Name, username, and email are required"
+        });
+        }
+
         service.updateUserProfile(userId, name, username, email);
 
         return res.status(204).send();
