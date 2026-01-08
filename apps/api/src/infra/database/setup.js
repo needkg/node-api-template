@@ -1,7 +1,7 @@
 import { query } from "./connection.js";
 
 export async function createUsersTable() {
-    const createUsersTable = `
+    const createUsersTableSql = `
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
         userId CHAR(36) NOT NULL UNIQUE,
@@ -17,15 +17,21 @@ export async function createUsersTable() {
     `;
 
     try {
-        await query(createUsersTable);
-        console.log("Tabela users criada ou já existente ✅");
+        const result = await query(createUsersTableSql);
+
+        if (result.affectedRows > 0) {
+            console.info("[INFO] Users table created")
+        } else {
+            console.warn("[WARN] Users table already exists, skipping")
+        }
     } catch (err) {
-        console.error("Erro ao criar tabela users:", err.message);
+        console.error("[ERROR] Failed to create users table:", err.message);
+        throw err;
     }
 }
 
 export async function createSystemStateTable() {
-    const createSystemStateTable = `
+    const createSystemStateTableSql = `
     CREATE TABLE IF NOT EXISTS system_state (
         id INT AUTO_INCREMENT PRIMARY KEY,
         \`key\` VARCHAR(100) NOT NULL UNIQUE,
@@ -39,32 +45,49 @@ export async function createSystemStateTable() {
     `;
 
     try {
-        await query(createSystemStateTable);
-        console.log("Tabela system_state criada ou já existente ✅");
+        const result = await query(createSystemStateTableSql);
+
+        if (result.affectedRows > 0) {
+            console.info("[INFO] System state table created")
+        } else {
+            console.warn("[WARN] System state table already exists, skipping")
+        }
     } catch (err) {
-        console.error("Erro ao criar tabela system_state:", err.message);
+        console.error("[ERROR] Failed to create system_state table:", err.message);
+        throw err;
     }
 }
 
 export async function seedInitialSetupStates() {
-    const insertStates = `
+    const insertStatesSql = `
     INSERT IGNORE INTO system_state (\`key\`, value, type, description)
     VALUES
         ('setup.admin', 'pending', 'string', 'Criação do usuário administrador');
     `;
 
     try {
-        await query(insertStates);
-        console.log("Estados iniciais do setup inseridos na tabela system_state ✅");
+
+        const result = await query(insertStatesSql);
+
+        if (result.affectedRows > 0) {
+          console.info("[INFO] Initial setup states inserted into system_state table");
+        } else {
+          console.warn("[WARN] Initial setup states already exist, skipping");
+        }
     } catch (err) {
-        console.error("Erro ao inserir estados iniciais do setup:", err.message);
+        console.error("[ERROR] Failed to insert initial setup states:", err.message);
+         throw err;
     }
 }
 
 export async function setupDatabase() {
+    console.info("[INFO] Starting database setup");
+
     await createUsersTable();
     await createSystemStateTable();
     await seedInitialSetupStates();
+
+    console.info("[INFO] Database setup completed successfully");
 }
 
 export default setupDatabase;

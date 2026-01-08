@@ -1,18 +1,15 @@
 import pool from "./connection.js";
-import setupDatabase from "./setup.js";
 
 export async function initDatabase() {
     try {
+        console.info("[INFO] Connecting to database");
+
         await pool.query("SELECT 1");
 
-        console.log("✅ Database connected successfully");
-
-        await setupDatabase();
+        console.info("[INFO] Database connected successfully");
 
     } catch (error) {
-        console.error("❌ Database initialization failed: " + error.message);
-        throw new Error("Database initialization error: " + error.message);
+        console.error("[ERROR] Database connection failed:", error);
+        throw error;
     }
 }
-
-export default initDatabase;
