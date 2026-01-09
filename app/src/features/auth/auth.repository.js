@@ -1,8 +1,8 @@
 import { query } from "../../infra/database/connection.js";
 
-export async function findUserByEmail(email) {
+export async function getUserAuthDataByEmail(email) {
     const [result] = await query(
-        "SELECT * FROM users WHERE email = ?",
+        "SELECT userId, password FROM users WHERE email = ?",
         [email]
     );
 
@@ -20,34 +20,5 @@ export async function createUser(user) {
             user.password, 
             user.isActivated
         ]
-    );
-}
-
-export async function saveRefreshToken(userId, refreshToken, expiresAt) {
-    await query(
-        "INSERT INTO refresh_tokens (userId, token, expiresAt) VALUES (?, ?, ?)",
-        [userId, refreshToken, expiresAt]
-    );
-}
-
-export async function findRefreshToken(token) {
-    const [result] = await query(
-        "SELECT * FROM refresh_tokens WHERE token = ?",
-        [token]
-    );
-    return result;
-}
-
-export async function revokeRefreshToken(token) {
-    await query(
-        "UPDATE refresh_tokens SET revoked = true WHERE token = ?",
-        [token]
-    );
-}
-
-export async function revokeAllTokensByUser(userId) {
-    await query(
-        "UPDATE refresh_tokens SET revoked = true WHERE userId = ?",
-        [userId]
     );
 }

@@ -1,4 +1,4 @@
-import { verifyAccessToken } from "../auth/jwt.js";
+import { verifyAccessToken } from "../jwt/jwt.service.js";
 
 export async function ensureAuthenticated(req, res, next) {
     const authHeader = req.headers.authorization;
@@ -14,8 +14,8 @@ export async function ensureAuthenticated(req, res, next) {
     const [, token] = authHeader.split(" ");
 
     try {
-        const decoded = verifyAccessToken(token);
-        req.user = decoded;
+        const payload = verifyAccessToken(token);
+        req.user = payload;
         next();
     } catch {
         return res.status(401).json({

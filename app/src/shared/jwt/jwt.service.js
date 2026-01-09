@@ -11,11 +11,12 @@ if (!ACCESS_SECRET || !REFRESH_SECRET) {
 
 export function generateAccessToken(userId) {
   const accessToken = jwt.sign(
+    {},
+    REFRESH_SECRET,
     {
-      userId
-    },
-    ACCESS_SECRET,
-    { expiresIn: "4s" }
+      subject: userId,
+      expiresIn: "7d"
+    }
   );
 
   return accessToken;
@@ -23,11 +24,12 @@ export function generateAccessToken(userId) {
 
 export function generateRefreshToken(userId) {
   const refreshToken = jwt.sign(
-    {
-      sub: userId
-    },
+    {},
     REFRESH_SECRET,
-    { expiresIn: "7d" }
+    {
+      subject: userId,
+      expiresIn: "30d"
+    }
   );
 
   return refreshToken;

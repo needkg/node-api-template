@@ -1,10 +1,11 @@
 import { randomUUID } from "crypto";
-import { createUser, findRefreshToken, findUserByEmail, revokeAllTokensByUser, revokeRefreshToken, saveRefreshToken } from "./auth.repository.js";
-import { generateAccessToken, generateRefreshToken, getRefreshTokenExpiryDate } from "../../shared/auth/jwt.js";
-import { hashString, compareHashedString } from "../../shared/auth/hash.js";
+import { findRefreshTokenByUserId, revokeAllRefreshTokens, revokeRefreshToken, saveRefreshToken } from "../../shared/jwt/jwt.repository.js";
+import { generateAccessToken, generateRefreshToken, getRefreshTokenExpiryDate, verifyRefreshToken } from "../../shared/jwt/jwt.service.js";
+import { hashString, compareHashedString } from "../../shared/bcrypt/bcrypt.service.js";
+import { createUser, getUserAuthDataByEmail } from "./auth.repository.js";
 
 export async function authenticateUser(email, password) {
-    const user = await findUserByEmail(email);
+    const user = await getUserAuthDataByEmail(email);
 
     if (!user) {
         throw { status: 401, error: "Unauthorized", message: "Invalid credentials" };
@@ -24,9 +25,11 @@ export async function authenticateUser(email, password) {
     const refreshToken = generateRefreshToken(user.userId);
     const expiresAt = getRefreshTokenExpiryDate(refreshToken);
 
+    const hashedRefreshToken = await hashString(refreshToken);
+
     await saveRefreshToken(
         user.userId,
-        refreshToken,
+        hashedRefreshToken,
         expiresAt
     );
 
@@ -50,14 +53,17 @@ export async function registerUser(name, username, email, password) {
 }
 
 export async function refreshUserToken(token) {
-    const storedToken = await findRefreshToken(token);
+
+    const payload = await verifyRefreshToken(token);
+
+    const storedToken = await findRefreshTokenByUserId(payload.sub);
 
     if (!storedToken) {
         throw { status: 403, error: "Forbidden", message: "Invalid or expired refresh token" };
     }
 
     if (storedToken.revoked) {
-        await revokeAllTokensByUser(storedToken.userId);
+        await revokeAllRefreshTokens(storedToken.userId);
         throw { status: 403, error: "Forbidden", message: "Token reuse detected. Please sign in again." };
     }
 
@@ -65,13 +71,17 @@ export async function refreshUserToken(token) {
         throw { status: 401, error: "Unauthorized", message: "Refresh token has expired" };
     }
 
-    const accessToken = generateAccessToken(storedToken.userId);
-    const refreshToken = generateRefreshToken(storedToken.userId);
+
+    const accessToken = generateAccessToken(payload.sub);
+    const refreshToken = generateRefreshToken(payload.sub);
     const expiresAt = getRefreshTokenExpiryDate(refreshToken);
 
+    const hashedRefreshToken = await hashString(refreshToken);
+
+
     await saveRefreshToken(
-        storedToken.userId,
-        refreshToken,
+        payload.sub,
+        hashedRefreshToken,
         expiresAt
     );
 
