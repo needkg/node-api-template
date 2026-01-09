@@ -122,6 +122,10 @@ export async function processUserLogoutAll(req, res) {
 	try {
 		const refreshToken = req.cookies.refresh_token;
 
+		if (!refreshToken) {
+			return res.status(204).send();
+		}
+
 		const payload = verifyRefreshToken(refreshToken);
 
 		await revokeAllRefreshTokens(payload.sub);
