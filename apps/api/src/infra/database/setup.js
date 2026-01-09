@@ -25,6 +25,28 @@ export async function createUsersTable() {
     }
 }
 
+export async function createRefreshTokensTable() {
+    const createRefreshTokensTableSql = `
+    CREATE TABLE IF NOT EXISTS refresh_tokens (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        userId CHAR(36) NOT NULL,
+        token VARCHAR(512) NOT NULL UNIQUE,
+        expiresAt TIMESTAMP NOT NULL,
+        revoked BOOLEAN NOT NULL DEFAULT FALSE,
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        INDEX idx_token (token)
+    );
+    `;
+
+    try {
+        await query(createRefreshTokensTableSql);
+        console.info("[INFO] Refresh tokens table ensured successfully");
+    } catch (err) {
+        console.error("[ERROR] Failed to create refresh_tokens table:", err.message);
+        throw err;
+    }
+}
+
 export async function createSystemStateTable() {
     const createSystemStateTableSql = `
     CREATE TABLE IF NOT EXISTS system_state (
@@ -69,6 +91,7 @@ export async function setupDatabase() {
     console.info("[INFO] Starting database setup");
 
     await createUsersTable();
+    await createRefreshTokensTable();
     await createSystemStateTable();
     await seedInitialSetupStates();
 

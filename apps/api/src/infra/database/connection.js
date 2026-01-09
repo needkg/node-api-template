@@ -36,7 +36,7 @@ export async function query(sql, params = []) {
 }
 
 export async function findSystemStateByKey(key) {
-    const result = await query(
+    const [result] = await query(
         "SELECT value FROM system_state WHERE `key` = ?",
         [key]
     );

@@ -1,6 +1,4 @@
-import { verifyToken } from "../auth/jwt.js";
-
-const JWT_SECRET = process.env.JWT_SECRET;
+import { verifyAccessToken } from "../auth/jwt.js";
 
 export async function ensureAuthenticated(req, res, next) {
     const authHeader = req.headers.authorization;
@@ -16,9 +14,8 @@ export async function ensureAuthenticated(req, res, next) {
     const [, token] = authHeader.split(" ");
 
     try {
-        const decoded = verifyToken(token);
+        const decoded = verifyAccessToken(token);
         req.user = decoded;
-
         next();
     } catch {
         return res.status(401).json({

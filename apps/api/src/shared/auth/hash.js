@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
 
-export function hashPassword(password) {
-    return bcrypt.hash(password, 10);
+export function hashString(plainString) {
+    return bcrypt.hash(plainString, 10);
 }
 
-export function comparePasswords(plainPassword, hashedPassword) {
-    return bcrypt.compare(plainPassword, hashedPassword);
+export function compareHashedString(plainString, hashedString) {
+    return bcrypt.compare(plainString, hashedString);
 }
