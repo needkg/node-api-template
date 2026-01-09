@@ -7,7 +7,7 @@ export async function ensureAuthenticated(req, res, next) {
         return res.status(401).json({
             status: 401,
             error: "Unauthorized",
-            message: "Token not provided"
+            message: "Authorization header not provided"
         });
     }
 

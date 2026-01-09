@@ -96,3 +96,7 @@ export async function refreshUserToken(token) {
 export async function logoutUser(token) {
     await revokeRefreshToken(token);
 }
+
+export async function logoutAll(userId) {
+    await revokeAllRefreshTokens(userId);
+}

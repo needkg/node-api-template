@@ -23,4 +23,9 @@ router.post(
     controller.processUserLogout
 );
 
+router.post(
+    "/auth/logout-all",
+    controller.processUserLogoutAll
+)
+
 export default router;

@@ -1,3 +1,5 @@
+import { revokeAllRefreshTokens } from "../../shared/jwt/jwt.repository.js";
+import { verifyRefreshToken } from "../../shared/jwt/jwt.service.js";
 import * as service from "./auth.service.js";
 
 export async function processUserAuthentication(req, res) {
@@ -104,6 +106,31 @@ export async function processUserLogout(req, res) {
 			sameSite: "strict",
 			path: "/auth"
 		});
+
+		return res.status(204).send();
+	} catch (err) {
+		return res.status(err.status || 500).json({
+			status: err.status || 500,
+			error: err.error || "Internal Server Error",
+			message: err.message
+		});
+	}
+}
+
+export async function processUserLogoutAll(req, res) {
+
+	try {
+		const refreshToken = req.cookies.refresh_token;
+
+		const payload = verifyRefreshToken(refreshToken);
+
+		await revokeAllRefreshTokens(payload.sub);
+		
+		res.clearCookie("refresh_token", {
+			httpOnly: true,
+			sameSite: "strict",
+			path: "/auth"
+		});			
 
 		return res.status(204).send();
 	} catch (err) {
