@@ -2,7 +2,7 @@ import { query } from "../../infra/database/connection.js";
 
 export async function getUserAuthDataByEmail(email) {
     const [result] = await query(
-        "SELECT userId, password, isActivated FROM users WHERE email = ?",
+        "SELECT user_id, password, is_activated FROM users WHERE email = ?",
         [email]
     );
 
@@ -11,7 +11,7 @@ export async function getUserAuthDataByEmail(email) {
 
 export async function createUser(user) {
     await query(
-        "INSERT INTO users (userId, name, username, email, password, isActivated) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (user_id, name, username, email, password, is_activated) VALUES (?, ?, ?, ?, ?, ?)",
         [
             user.userId,
             user.name, 

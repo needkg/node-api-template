@@ -3,7 +3,7 @@ import { query } from "../../infra/database/connection.js";
 export async function ensureUserActivated(req, res, next) {
     try {
         const [rows] = await query(
-            "SELECT isActivated FROM users WHERE userId = ?",
+            "SELECT is_activated FROM users WHERE user_id = ?",
             [req.user.userId]
         );
 

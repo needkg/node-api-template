@@ -2,7 +2,7 @@ import { query } from "../../infra/database/connection.js";
 
 export async function createAdminUser(userId, name, username, email, hashedPassword) {
     await query(
-        "INSERT INTO users (userId, name, username, email, password, isActivated, isAdmin) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (user_id, name, username, email, password, is_activated, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)",
         [userId, name, username, email, hashedPassword, true, true]
     );
 }

@@ -4,15 +4,15 @@ export async function createUsersTable() {
     const createUsersTableSql = `
     CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        userId CHAR(36) NOT NULL UNIQUE,
+        user_id CHAR(36) NOT NULL UNIQUE,
         name VARCHAR(100) NOT NULL,
         username VARCHAR(50) NOT NULL UNIQUE,
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
-        isActivated TINYINT(1) NOT NULL DEFAULT 1,
-        isAdmin TINYINT(1) NOT NULL DEFAULT 0,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        is_activated TINYINT(1) NOT NULL DEFAULT 1,
+        is_admin TINYINT(1) NOT NULL DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
     `;
 
@@ -28,13 +28,19 @@ export async function createUsersTable() {
 export async function createRefreshTokensTable() {
     const createRefreshTokensTableSql = `
     CREATE TABLE IF NOT EXISTS refresh_tokens (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        userId CHAR(36) NOT NULL,
-        token VARCHAR(512) NOT NULL UNIQUE,
-        expiresAt TIMESTAMP NOT NULL,
+        id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+        user_id CHAR(36) NOT NULL,
+        token CHAR(255) NOT NULL,
+
         revoked BOOLEAN NOT NULL DEFAULT FALSE,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        INDEX idx_token (token)
+        expires_at DATETIME NOT NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+        INDEX idx_user_id (user_id),
+        INDEX idx_token (token),
+        INDEX idx_expires_at (expires_at),
+        INDEX idx_revoked (revoked)
     );
     `;
 
@@ -54,9 +60,8 @@ export async function createSystemStateTable() {
         \`key\` VARCHAR(100) NOT NULL UNIQUE,
         value VARCHAR(255) NOT NULL,
         type ENUM('string', 'number', 'boolean', 'json') NOT NULL DEFAULT 'string',
-        description TEXT NULL,
-        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
     `;
 
@@ -71,9 +76,9 @@ export async function createSystemStateTable() {
 
 export async function seedInitialSetupStates() {
     const insertStatesSql = `
-    INSERT IGNORE INTO system_state (\`key\`, value, type, description)
+    INSERT IGNORE INTO system_state (\`key\`, value, type)
     VALUES
-        ('setup.admin', 'pending', 'string', 'Criação do usuário administrador');
+        ('setup.admin', 'pending', 'string');
     `;
 
     try {
