@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon app/src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,6 @@
     "nodemon": "^3.1.11"
   },
   "imports": {
-    "#middlewares": "./src/shared/middlewares/index.js"
+    "#middlewares": "./app/src/shared/middlewares/index.js"
   }
 }
