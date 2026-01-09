@@ -2,7 +2,7 @@ import { query } from "../../infra/database/connection.js";
 
 export async function getUserAuthDataByEmail(email) {
     const [result] = await query(
-        "SELECT userId, password FROM users WHERE email = ?",
+        "SELECT userId, password, isActivated FROM users WHERE email = ?",
         [email]
     );
 
