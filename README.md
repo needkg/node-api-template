@@ -23,7 +23,7 @@ cp .env.example .env
 npm run dev
 ```
 
-**📚 [Complete Setup Guide →](../../wiki/Installation-Guide)**
+**📚 [Complete Setup Guide →](../../wiki/Installation-Guide)** *(Coming Soon)*
 
 ## ✨ Features
 
