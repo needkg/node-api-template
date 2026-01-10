@@ -2,6 +2,20 @@
 
 A robust and scalable REST API built with Node.js, Express and MySQL, following architecture and security best practices.
 
+## 📚 Documentation
+
+**For comprehensive documentation, guides, and advanced topics, visit our [Wiki](../../wiki).**
+
+The Wiki includes:
+- 🔧 **Development Setup** - Detailed configuration guides
+- 🏗️ **Architecture Deep Dive** - In-depth project structure analysis
+- 🔐 **Security Implementation** - Authentication and authorization details
+- 📡 **Complete API Reference** - Full endpoint documentation
+- 🚀 **Deployment Guides** - Production deployment strategies
+- 🛠️ **Advanced Topics** - Custom middleware, optimization, and more
+
+---
+
 ## 🛠️ Technologies
 
 ![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
@@ -227,6 +241,15 @@ DB_PORT=3306
 3. Commit your changes (`git commit -m 'Add new feature'`)
 4. Push to the branch (`git push origin feature/new-feature`)
 5. Open a Pull Request
+
+For detailed contributing guidelines, code style, and development workflow, see our [Contributing Guide](../../wiki/Contributing-Guidelines) in the Wiki.
+
+## 📚 Additional Resources
+
+- **[Wiki Home](../../wiki)** - Complete project documentation
+- **[API Reference](../../wiki/API-Endpoints)** - Detailed endpoint documentation
+- **[Troubleshooting](../../wiki/Troubleshooting)** - Common issues and solutions
+- **[FAQ](../../wiki/FAQ)** - Frequently asked questions
 
 ## 📄 License
 
