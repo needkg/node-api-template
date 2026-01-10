@@ -11,7 +11,7 @@
 
 ```bash
 # Clone and setup
-git clone <repository-url>
+git clone https://github.com/needkg/node-api-template.git
 cd node-api-template/apps/api
 npm install
 
