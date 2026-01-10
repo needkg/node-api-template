@@ -12,7 +12,7 @@
 ```bash
 # Clone and setup
 git clone https://github.com/needkg/node-api-template.git
-cd node-api-template/apps/api
+cd node-api-template
 npm install
 
 # Configure environment
