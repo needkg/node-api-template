@@ -18,3 +18,11 @@ export async function markAdminSetupAsCompleted() {
         "UPDATE system_state SET value = 'created' WHERE `key` = 'setup.admin'"
     );
 }
+
+export async function getSetupStatus() {
+    const result = await query(
+        "SELECT value FROM system_state WHERE `key` = 'setup.admin'"
+    );
+
+    return result[0];
+}

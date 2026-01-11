@@ -12,4 +12,9 @@ router.post(
     controller.handleCreateFirstAdmin
 );
 
+router.get(
+    "/setup/status",
+    controller.handleGetSetupStatus
+)
+
 export default router;

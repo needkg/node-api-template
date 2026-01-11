@@ -13,3 +13,15 @@ export async function createFirstAdmin(name, username, email, password) {
 
     return user;
 }
+
+export async function verifySetupStatus() {
+    const status = []
+    const setupStatus = await repository.getSetupStatus();
+
+    status.push({
+        component: "Admin User Setup",
+        status : setupStatus && setupStatus.value === "created" ? "completed" : "pending"
+    });
+
+    return status;
+}

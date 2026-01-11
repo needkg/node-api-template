@@ -29,3 +29,28 @@ export async function handleCreateFirstAdmin(req, res) {
         });
     }
 }
+
+export async function handleGetSetupStatus(req, res) {
+
+    try {
+
+        const setupStatus = await service.verifySetupStatus();
+
+        return res.status(200).json({
+            status: 200,
+            message: "Setup status retrieved successfully",
+            data: {
+                setupStatus: {
+                    component: setupStatus[0].component,
+                    status: setupStatus[0].status
+                }
+            }
+        });
+    } catch (err) {
+        return res.status(err.status || 500).json({
+            status: err.status || 500,
+            error: err.error || "Internal Server Error",
+            message: err.message || "Failed to retrieve setup status"
+        });
+    }
+}
