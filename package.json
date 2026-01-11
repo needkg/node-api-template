@@ -1,14 +1,14 @@
 {
   "name": "node-api-template",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node API Template",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon app/src/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "needkg",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^6.0.0",
