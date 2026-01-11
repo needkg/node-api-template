@@ -11,6 +11,7 @@ export async function createUsersTable() {
         password VARCHAR(255) NOT NULL,
         is_activated TINYINT(1) NOT NULL DEFAULT 1,
         role VARCHAR(30) NOT NULL DEFAULT 'user',
+        language VARCHAR(10) NOT NULL DEFAULT 'en',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );

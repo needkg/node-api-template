@@ -5,7 +5,7 @@ export async function getUserProfile(userId) {
     return await repository.findUserProfile(userId);
 }
 
-export async function updateUserProfile(userId, name, username, email, oldPassword, newPassword) {
+export async function updateUserProfile(userId, name, username, email, language, oldPassword, newPassword) {
 
     const user = await repository.findUserProfile(userId);
 
@@ -42,8 +42,8 @@ export async function updateUserProfile(userId, name, username, email, oldPasswo
         const hashedNewPassword = await hashString(newPassword);
 
         await repository.updateUserPasswordById(userId, hashedNewPassword);
-        
+
     }
 
-    return await repository.updateUserById(userId, name, username, email);
+    return await repository.updateUserById(userId, name, username, email, language);
 }

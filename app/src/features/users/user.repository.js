@@ -25,10 +25,10 @@ export async function updateUserPasswordById(userId, hashedPassword) {
     );
 }
 
-export async function updateUserById(userId, name, username, email) {
+export async function updateUserById(userId, name, username, email, language) {
     await query(
-        "UPDATE users SET name = ?, username = ?, email = ? WHERE user_id = ?",
-        [name, username, email, userId]
+        "UPDATE users SET name = ?, username = ?, email = ?, language = ? WHERE user_id = ?",
+        [name, username, email, language, userId]
     );
 
     return await findUserProfile(userId);
