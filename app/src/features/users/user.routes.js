@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { ensureAuthenticated, ensureUserActivated } from "#middlewares";
+import { ensureAuthenticated, ensureUserActivated } from "../../shared/middlewares/index.js";
 
 import * as controller from "./user.controller.js";
 

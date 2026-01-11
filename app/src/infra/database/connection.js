@@ -11,7 +11,7 @@ const pool = mysql.createPool({
     user: DB_USER,
     password: DB_PASSWORD,
     database: DB_NAME,
-    port: DB_PORT,
+    port: parseInt(DB_PORT),
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -22,26 +22,24 @@ if (!DB_HOST || !DB_USER || !DB_PASSWORD || !DB_NAME || !DB_PORT) {
 }
 
 export async function query(sql, params = []) {
-    try {
-        const [rows] = await pool.query(sql, params);
-        return rows ?? null;
-    } catch (error) {
-        console.error("DB QUERY ERROR:", {
-            sql,
-            params,
-            message: error.message
-        });
-        throw error;
+  try {
+    const [rows] = await pool.query(sql, params);
+    return rows;
+  } catch (error) {
+    if (process.env.NODE_ENV === "development") {
+      console.error("DB QUERY ERROR:", { sql, params, message: error.message });
     }
+    throw new Error("Database query failed");
+  }
 }
 
 export async function findSystemStateByKey(key) {
-    const [result] = await query(
+    const result = await query(
         "SELECT value FROM system_state WHERE `key` = ?",
         [key]
     );
 
-    return result;
+    return result[0];
 }
 
 export default pool;

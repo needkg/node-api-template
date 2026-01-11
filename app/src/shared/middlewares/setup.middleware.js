@@ -10,6 +10,6 @@ export async function ensureAdminSetupPending(req, res, next) {
     return res.status(403).json({
         status: 403,
         error: "Forbidden",
-        message: "Setup already completed"
+        message: "Admin setup already completed. This endpoint is no longer accessible"
     });
 }

@@ -3,21 +3,22 @@ import * as repository from "./admin.repository.js";
 export async function listUsersForAdmin() {
     const users = await repository.findUsers();
 
-    const usersById = {};
+    const rows = [];
 
     for (const user of users) {
-        usersById[user.id] = {
-            userId: user.userId,
+        rows.push({
+            internalId: user.id,
+            userId: user.user_id,
             name: user.name,
             username: user.username,
             email: user.email,
-            isActivated: Boolean(user.isActivated),
-            isAdmin: Boolean(user.isAdmin)
-        };
+            isActivated: Boolean(user.is_activated),
+            role: user.role
+        });
     }
 
     return {
-        users: usersById
+        rows
     };
 }
 

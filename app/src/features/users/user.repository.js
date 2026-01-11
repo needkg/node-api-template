@@ -1,12 +1,12 @@
 import { query } from "../../infra/database/connection.js";
 
 export async function findUserProfile(userId) {
-    const [rows] = await query(
-        "SELECT name, email, is_activated FROM users WHERE user_id = ?",
+    const rows = await query(
+        "SELECT name, username, email, is_activated, role, created_at FROM users WHERE user_id = ?",
         [userId]
     );
 
-    return rows
+    return rows[0];
 }
 
 export async function updateUserById(userId, name, username, email) {
@@ -14,4 +14,6 @@ export async function updateUserById(userId, name, username, email) {
         "UPDATE users SET name = ?, username = ?, email = ? WHERE user_id = ?",
         [name, username, email, userId]
     );
+
+    return await findUserProfile(userId);
 }

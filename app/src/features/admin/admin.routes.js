@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { ensureAuthenticated, ensureUserActivated, requireAdmin } from "#middlewares";
+import { ensureAuthenticated, ensureUserActivated, requireAdmin } from "../../shared/middlewares/index.js";
 
 import * as controller from "./admin.controller.js";
 
@@ -14,7 +14,7 @@ router.get(
     controller.handleListUsers
 );
 
-router.patch(
+router.put(
     "/admin/users/:userId", 
     ensureAuthenticated, 
     ensureUserActivated, 

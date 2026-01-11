@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { ensureAdminSetupPending } from "#middlewares";
+import { ensureAdminSetupPending } from "../../shared/middlewares/index.js";
 
 import * as controller from "./setup.controller.js";
 

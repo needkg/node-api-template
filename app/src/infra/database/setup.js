@@ -10,9 +10,9 @@ export async function createUsersTable() {
         email VARCHAR(150) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         is_activated TINYINT(1) NOT NULL DEFAULT 1,
-        is_admin TINYINT(1) NOT NULL DEFAULT 0,
+        role VARCHAR(30) NOT NULL DEFAULT 'user',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        update_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
     `;
 

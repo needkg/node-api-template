@@ -7,8 +7,9 @@ export async function createFirstAdmin(name, username, email, password) {
     const userId = randomUUID();
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await repository.createAdminUser(userId, name, username, email, hashedPassword);
+    const user = await repository.createAdminUser(userId, name, username, email, hashedPassword);
 
     await repository.markAdminSetupAsCompleted()
 
+    return user;
 }

@@ -3,9 +3,9 @@ import * as service from "./admin.service.js";
 export async function handleListUsers(req, res) {
 
     try {
-        const rows = await service.listUsersForAdmin();
+        const users = await service.listUsersForAdmin();
 
-        if (!rows || rows.length === 0) {
+        if (!users || users.length === 0) {
             return res.status(404).json({
                 status: 404,
                 error: "Not Found",
@@ -14,13 +14,18 @@ export async function handleListUsers(req, res) {
         }
 
         return res.status(200).json({
-            rows
+            status: 200,
+            message: "Users retrieved successfully",
+            data: { 
+                users: users.rows,
+                total: users.rows.length
+            }
         });
     } catch (err) {
         return res.status(err.status || 500).json({
             status: err.status || 500,
             error: err.error || "Internal Server Error",
-            message: err.message
+            message: err.message || "User retrieval failed"
         });
     }
 }
@@ -35,28 +40,39 @@ export async function handleUpdateUser(req, res) {
             return res.status(400).json({
                 status: 400,
                 error: "Bad Request",
-                message: "Admin users cannot deactivate their own accounts"
+                message: "You cannot update your own profile via this endpoint"
             });
         }
 
-        const { name, username, email, isActivated, isAdmin } = req.body;
+        const { name, username, email, isActivated, role } = req.body;
 
-        if (!name || !username || !email || !isActivated || !isAdmin) {
+        if (!name || !username || !email || !isActivated || !role) {
             return res.status(400).json({
                 status: 400,
                 error: "Bad Request",
-                message: "All fields: name, username, email, isActivated, and isAdmin are required"
+                message: "All fields (name, username, email, isActivated, role) are required"
             });
         }
 
-        await service.updateUserProfile(targetUserId, name, username, email, isActivated, isAdmin);
-
-        return res.status(204).send();
+        await service.updateUserProfile(targetUserId, name, username, email, isActivated, role);
+        return res.status(200).json({
+            status: 200,
+            message: "User updated successfully",
+            data: {
+                userId: targetUserId,
+                name: name,
+                username: username,
+                email: email,
+                isActivated: Boolean(isActivated),
+                role: role,
+                updatedAt: new Date().toISOString()
+            }
+        });
     } catch (err) {
         return res.status(err.status || 500).json({
             status: err.status || 500,
             error: err.error || "Internal Server Error",
-            message: err.message
+            message: err.message || "User update failed"
         });
     }
 }
