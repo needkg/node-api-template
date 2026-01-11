@@ -40,7 +40,7 @@ export async function handleUserProfile(req, res) {
 export async function handleUpdateUserProfile(req, res) {
     try {
         const userId = req.user.sub;
-        const { name, username, email } = req.body;
+        const { name, username, email, oldPassword, newPassword } = req.body;
 
         if (!name || !username || !email) {
         return res.status(400).json({
@@ -50,7 +50,7 @@ export async function handleUpdateUserProfile(req, res) {
         });
         }
 
-        const updatedUser = await service.updateUserProfile(userId, name, username, email);
+        const updatedUser = await service.updateUserProfile(userId, name, username, email, oldPassword, newPassword);
 
         return res.status(200).json({
             status: 200,
